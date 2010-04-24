@@ -4,6 +4,14 @@ answers.
 
 (def x 1)
 (def y 1)
-(let [x 5 y x] y)     
-(binding [x 5 y x] y)
+(let [x 5 y x] y)     ; 5
+(binding [x 5 y x] y) ; 5
 
+; Guess: Both expressions yield 5.
+; The values of both x and y are shadowed by new bindings (x=y=5).
+; No difference between lexical (let) and dynamic (binding) scoping 
+; because there are no function calls involved.
+
+; Verify in REPL: I was wrong about the second expression - 1 instead of 5.
+; The bindings are sequential in let but parallel in binding, so y is bound 
+; to the old value of x: 1
