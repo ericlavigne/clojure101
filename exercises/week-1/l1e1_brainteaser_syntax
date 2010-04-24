@@ -6,3 +6,7 @@ user=> (1 2 3)
 java.lang.ClassCastException: java.lang.Integer cannot be cast to clojure.lang.IFn (NO_SOURCE_FILE:0)
 user=> '(1 2 3)
 (1 2 3)
+
+; An unquoted list is evaluated by treating the first element as an operator and the rest as arguments.
+; The operator is either a macro or, more commonly, a function (clojure.lang.IFn).
+; The number 1 (java.lang.Integer) can not be treated as either.
