@@ -61,7 +61,10 @@
   "Prints out information about a book."
   [{:keys [title authors price]}]
   (println "Title:" title)
-  (println "  Author: " (comma-sep authors))
+  (let [[first second & more] authors]
+    (println "  Author: " (comma-sep 
+			   (remove nil? [first second
+					 (when more "et. al.")]))))
   (println "  Price:" (money-str price)))
 
 (comment
