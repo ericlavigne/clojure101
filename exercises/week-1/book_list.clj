@@ -59,13 +59,14 @@
 
 (defn print-book
   "Prints out information about a book."
-  [{:keys [title authors price]}]
+  [{:keys [title authors price] :as book}]
   (println "Title:" title)
   (let [[first second & more] authors]
     (println "  Author: " (comma-sep 
 			   (remove nil? [first second
 					 (when more "et. al.")]))))
-  (println "  Price:" (money-str price)))
+  (println "  Price:" (money-str price))
+  (println "  Raw:" (pr-str book)))
 
 (comment
   (use 'book-list)
