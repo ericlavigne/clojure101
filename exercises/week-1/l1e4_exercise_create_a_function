@@ -13,3 +13,34 @@ user=> (map nth-fib [10 20 30 40 50 60 70])
 
 Now do a memoized version of the same function and use the 'time' form to compare it to your original version. Discuss your findings.
 
+(use 'clojure.contrib.math)
+
+(defn nth-fib [n]
+      (let [phi (* 0.5 (+ 1 (sqrt 5)))]
+           (round (/ (expt phi n) (sqrt 5)))))
+
+(def memoized-nth-fib (memoize nth-fib))
+
+user=> (time (drop 3000 (map nth-fib (range 3001))))
+"Elapsed time: 0.100292 msecs"
+(9223372036854775807)
+user=> (time (drop 3000 (map nth-fib (range 3001))))
+"Elapsed time: 0.102247 msecs"
+(9223372036854775807)
+user=> (time (drop 3000 (map nth-fib (range 3001))))
+"Elapsed time: 0.104483 msecs"
+(9223372036854775807)
+
+user=> (time (drop 3000 (map memoized-nth-fib (range 3001))))
+"Elapsed time: 0.101969 msecs"
+(9223372036854775807)
+user=> (time (drop 3000 (map memoized-nth-fib (range 3001))))
+"Elapsed time: 0.101689 msecs"
+(9223372036854775807)
+user=> (time (drop 3000 (map memoized-nth-fib (range 3001))))
+"Elapsed time: 0.102248 msecs"
+(9223372036854775807)
+
+Memoization makes no noticeable difference for nth-fib. Retrieving a stored value
+takes just as much time as recalculating. We would see a large difference if
+the function did more work for each time that it was called.
