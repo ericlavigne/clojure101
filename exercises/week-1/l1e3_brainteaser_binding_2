@@ -9,3 +9,20 @@ binding forms? Use the REPL to check your answers.
 
 ((binding [method-one method-two]
    #(method-one 1 2 3)))
+
+; Guess: Both will print: "Inside method #2 =>[1 2 3]"
+; The second one has an inner expression that returns a function.
+; The outer set of parentheses causes that function to be evaluated.
+; In both cases, method-one is replaced by method-two due to the 
+; binding macro.
+
+; Testing at REPL: I made two mistakes: scope of binding and how println treats arrays.
+; 1) In the second expression, method-one was called because the (method-one -> method-two)
+; binding had gone out of scope by the time the returned function had actually been called.
+; I expect that 'let would have behaved closer to my original expectation, and I will try
+; that next.
+; 2) The end of the line looked like "=> 1 2 3" instead of "=>123". This behavior from
+; 'prinln seems nice, though unexpected.
+
+; Followup: When I switched from 'binding to 'let, both expressions used method-two.
+; Lexical binding is so much easier to understand.
