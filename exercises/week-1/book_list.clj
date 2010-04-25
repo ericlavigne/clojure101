@@ -59,7 +59,7 @@
 
 (defn print-book
   "Prints out information about a book."
-  [{title :title, authors :authors, price :price}]
+  [{:keys [title authors price]}]
   (println "Title:" title)
   (println "  Author: " (comma-sep authors))
   (println "  Price:" (money-str price)))
