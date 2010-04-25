@@ -59,10 +59,10 @@
 
 (defn print-book
   "Prints out information about a book."
-  [book]
-  (println "Title:" (book :title))
-  (println "  Author: " (comma-sep (book :authors)))
-  (println "  Price:" (money-str (book :price))))
+  [{title :title, authors :authors, price :price}]
+  (println "Title:" title)
+  (println "  Author: " (comma-sep authors))
+  (println "  Price:" (money-str price)))
 
 (comment
   (use 'book-list)
